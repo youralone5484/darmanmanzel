@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>ورود/ثبت‌نام کادر درمان | درمان‌منزل</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body {
+      font-family: 'Vazirmatn', sans-serif;
+      background-color: #f0fdf4;
+    }
+    .auth-tab {
+      transition: all 0.3s ease;
+      border-bottom: 3px solid transparent;
+    }
+    .auth-tab.active {
+      border-bottom-color: #3b82f6;
+      color: #3b82f6;
+      font-weight: 600;
+    }
+    .file-input-label:hover {
+      background-color: #f3f4f6;
+    }
+    .password-toggle {
+      cursor: pointer;
+    }
+    .spinner {
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4">
+
+  <div class="bg-white rounded-xl shadow-lg w-full max-w-md overflow-hidden">
+    <!-- هدر -->
+    <div class="bg-gradient-to-l from-blue-600 to-blue-700 text-white p-6 text-center">
+      <i class="fas fa-user-md text-3xl mb-3"></i>
+      <h1 class="text-2xl font-bold">پنل کادر درمان</h1>
+      <p class="text-sm opacity-90 mt-1">سامانه اعزام پزشک و پرستار به منزل</p>
+    </div>
+
+    <!-- تب‌های ورود/ثبت‌نام -->
+    <div class="flex border-b">
+      <button id="login-tab-btn" class="auth-tab active flex-1 py-4 font-medium">
+        <i class="fas fa-sign-in-alt ml-2"></i> ورود پزشکان
+      </button>
+      <button id="register-tab-btn" class="auth-tab flex-1 py-4 font-medium text-gray-500">
+        <i class="fas fa-user-plus ml-2"></i> ثبت‌نام جدید
+      </button>
+    </div>
+
+    <!-- محتوای تب‌ها -->
+    <div class="p-6">
+      <!-- فرم ورود -->
+      <form id="login-form" class="space-y-4">
+        <div class="relative">
+          <label for="login-phone" class="block text-sm font-medium text-gray-700 mb-1">شماره موبایل</label>
+          <input type="tel" id="login-phone" name="phone" 
+                 class="w-full p-3 border border-gray-300 rounded-lg pl-12 focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
+                 placeholder="09123456789"
+                 pattern="09[0-9]{9}"
+                 required>
+          <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
+            <i class="fas fa-mobile-alt"></i>
+          </span>
+        </div>
+
+        <div class="relative">
+          <label for="login-password" class="block text-sm font-medium text-gray-700 mb-1">رمز عبور</label>
+          <input type="password" id="login-password" name="password"
+                 class="w-full p-3 border border-gray-300 rounded-lg pl-12 focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
+                 placeholder="رمز عبور"
+                 minlength="6"
+                 required>
+          <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
+            <i class="fas fa-lock"></i>
+          </span>
+          <button type="button" class="password-toggle absolute left-3 bottom-3 text-gray-400 hover:text-gray-600">
+            <i class="far fa-eye"></i>
+          </button>
+        </div>
+
+        <div class="flex items-center justify-between">
+          <div class="flex items-center">
+            <input type="checkbox" id="remember-me" name="remember" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+            <label for="remember-me" class="mr-2 block text-sm text-gray-700">
+              مرا به خاطر بسپار
+            </label>
+          </div>
+          <a href="#" class="text-sm text-blue-600 hover:text-blue-800">رمز عبور را فراموش کرده‌اید؟</a>
+        </div>
+
+        <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 px-4 rounded-lg shadow-md transition flex items-center justify-center">
+          <i class="fas fa-sign-in-alt ml-2"></i> ورود به پنل
+        </button>
+      </form>
+
+      <!-- فرم ثبت‌نام -->
+      <form id="register-form" class="space-y-4 hidden">
+        <div class="relative">
+          <label for="fullname" class="block text-sm font-medium text-gray-700 mb-1">نام کامل</label>
+          <input type="text" id="fullname" name="fullname"
+                 class="w-full p-3 border border-gray-300 rounded-lg pl-12 focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
+                 placeholder="نام و نام خانوادگی"
+                 required>
+          <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
+            <i class="fas fa-user"></i>
+          </span>
+        </div>
+
+        <div class="relative">
+          <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">شماره موبایل</label>
+          <input type="tel" id="phone" name="phone"
+                 class="w-full p-3 border border-gray-300 rounded-lg pl-12 focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
+                 placeholder="09123456789"
+                 pattern="09[0-9]{9}"
+                 required>
+          <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
+            <i class="fas fa-mobile-alt"></i>
+          </span>
+        </div>
+
+        <div class="relative">
+          <label for="specialty" class="block text-sm font-medium text-gray-700 mb-1">تخصص</label>
+          <select id="specialty" name="specialty"
+                  class="w-full p-3 border border-gray-300 rounded-lg appearance-none pl-12 focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
+                  required>
+            <option value="" disabled selected>-- انتخاب تخصص --</option>
+            <option value="general_physician">پزشک عمومی</option>
+            <option value="nurse">پرستار</option>
+            <option value="elderly_nurse">پرستار سالمند</option>
+            <option value="child_nurse">پرستار کودک</option>
+            <option value="specialist">پزشک متخصص</option>
+          </select>
+          <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
+            <i class="fas fa-stethoscope"></i>
+          </span>
+        </div>
+
+        <div class="relative">
+          <label for="medical_id" class="block text-sm font-medium text-gray-700 mb-1">شماره نظام پزشکی</label>
+          <input type="text" id="medical_id" name="medical_id"
+                 class="w-full p-3 border border-gray-300 rounded-lg pl-12 focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
+                 placeholder="در صورت داشتن">
+          <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
+            <i class="fas fa-id-card"></i>
+          </span>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">تصویر کارت نظام پزشکی</label>
+          <label for="medical_card" class="file-input-label flex flex-col items-center justify-center w-full p-4 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100">
+            <div class="flex flex-col items-center justify-center pt-5 pb-6">
+              <i class="fas fa-upload text-2xl text-gray-400 mb-2"></i>
+              <p class="text-sm text-gray-500">فایل را اینجا رها کنید یا کلیک کنید</p>
+              <p class="text-xs text-gray-400 mt-1">فرمت‌های مجاز: JPG, PNG (حداکثر 2MB)</p>
+            </div>
+            <input id="medical_card" name="medical_card" type="file" class="hidden" accept="image/*">
+          </label>
+          <span id="file-name" class="text-xs text-gray-500 mt-1"></span>
+        </div>
+
+        <div class="flex items-start">
+          <div class="flex items-center h-5">
+            <input id="terms" name="terms" type="checkbox"
+                   class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                   required>
+          </div>
+          <label for="terms" class="mr-2 block text-sm text-gray-700">
+            با <a href="#" class="text-blue-600 hover:text-blue-800">شرایط و قوانین</a> سامانه موافقم
+          </label>
+        </div>
+
+        <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 px-4 rounded-lg shadow-md transition flex items-center justify-center">
+          <i class="fas fa-user-plus ml-2"></i> تکمیل ثبت‌نام
+        </button>
+      </form>
+
+      <!-- لینک به صفحه کاربران عادی -->
+      <div class="text-center pt-4 border-t border-gray-200 mt-6">
+        <p class="text-sm text-gray-600">
+          کاربر عادی هستید؟
+          <a href="login.html" class="text-blue-600 hover:text-blue-800 font-medium">
+            <i class="fas fa-user ml-1"></i> ورود/ثبت‌نام کاربران عادی
+          </a>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- اسکریپت‌ها -->
+  <script>
+    // مدیریت تب‌ها
+    const loginTabBtn = document.getElementById('login-tab-btn');
+    const registerTabBtn = document.getElementById('register-tab-btn');
+    const loginForm = document.getElementById('login-form');
+    const registerForm = document.getElementById('register-form');
+
+    const switchToLogin = () => {
+      loginTabBtn.classList.add('active', 'text-blue-600');
+      loginTabBtn.classList.remove('text-gray-500');
+      registerTabBtn.classList.add('text-gray-500');
+      registerTabBtn.classList.remove('active', 'text-blue-600');
+      loginForm.classList.remove('hidden');
+      registerForm.classList.add('hidden');
+    };
+
+    const switchToRegister = () => {
+      registerTabBtn.classList.add('active', 'text-blue-600');
+      registerTabBtn.classList.remove('text-gray-500');
+      loginTabBtn.classList.add('text-gray-500');
+      loginTabBtn.classList.remove('active', 'text-blue-600');
+      registerForm.classList.remove('hidden');
+      loginForm.classList.add('hidden');
+    };
+
+    loginTabBtn.addEventListener('click', switchToLogin);
+    registerTabBtn.addEventListener('click', switchToRegister);
+
+    // نمایش نام فایل آپلود شده
+    document.getElementById('medical_card').addEventListener('change', function(e) {
+      const fileName = e.target.files[0]?.name || 'هیچ فایلی انتخاب نشده';
+      document.getElementById('file-name').textContent = fileName;
+    });
+
+    // نمایش/مخفی کردن رمز عبور
+    document.querySelector('.password-toggle').addEventListener('click', function() {
+      const passwordInput = document.getElementById('login-password');
+      const icon = this.querySelector('i');
+      
+      if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        icon.classList.remove('fa-eye');
+        icon.classList.add('fa-eye-slash');
+      } else {
+        passwordInput.type = 'password';
+        icon.classList.remove('fa-eye-slash');
+        icon.classList.add('fa-eye');
+      }
+    });
+
+    // اعتبارسنجی شماره موبایل
+    const validatePhone = (input) => {
+      input.value = input.value.replace(/[^0-9]/g, '').substr(0, 11);
+    };
+
+    document.getElementById('phone').addEventListener('input', function() {
+      validatePhone(this);
+    });
+
+    document.getElementById('login-phone').addEventListener('input', function() {
+      validatePhone(this);
+    });
+
+    // مدیریت فرم ورود
+    document.getElementById('login-form').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      const phone = document.getElementById('login-phone').value;
+      const password = document.getElementById('login-password').value;
+      const submitBtn = e.target.querySelector('button[type="submit"]');
+      
+      if (!phone || !password) {
+        alert('لطفاً شماره موبایل و رمز عبور را وارد کنید');
+        return;
+      }
+
+      // نمایش حالت loading
+      const originalBtnText = submitBtn.innerHTML;
+      submitBtn.innerHTML = '<i class="fas fa-spinner spinner ml-2"></i> در حال ورود...';
+      submitBtn.disabled = true;
+
+      // شبیه‌سازی ارسال به سرور
+      try {
+        // در نسخه واقعی اینجا با Firebase ارتباط برقرار می‌کنید
+        console.log('در حال ورود با:', { phone, password });
+        
+        // تاخیر برای شبیه‌سازی ارتباط با سرور
+        await new Promise(resolve => setTimeout(resolve, 1500));
+        
+        // ذخیره توکن (شبیه‌سازی)
+        localStorage.setItem('authToken', 'doctor-token-sample');
+        localStorage.setItem('userType', 'doctor');
+        localStorage.setItem('doctorPhone', phone);
+        
+        // هدایت به داشبورد
+        window.location.href = 'dashboard-doctor.html';
+      } catch (error) {
+        console.error('خطا در ورود:', error);
+        alert('شماره موبایل یا رمز عبور نادرست است');
+      } finally {
+        submitBtn.innerHTML = originalBtnText;
+        submitBtn.disabled = false;
+      }
+    });
+
+    // مدیریت فرم ثبت‌نام
+    document.getElementById('register-form').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      const fullname = document.getElementById('fullname').value;
+      const phone = document.getElementById('phone').value;
+      const specialty = document.getElementById('specialty').value;
+      const medicalId = document.getElementById('medical_id').value;
+      const medicalCard = document.getElementById('medical_card').files[0];
+      const submitBtn = e.target.querySelector('button[type="submit"]');
+      
+      if (!fullname || !phone || !specialty || !medicalCard) {
+        alert('لطفاً فیلدهای ضروری را تکمیل کنید');
+        return;
+      }
+
+      // نمایش حالت loading
+      const originalBtnText = submitBtn.innerHTML;
+      submitBtn.innerHTML = '<i class="fas fa-spinner spinner ml-2"></i> در حال ثبت‌نام...';
+      submitBtn.disabled = true;
+
+      // شبیه‌سازی ارسال به سرور
+      try {
+        // در نسخه واقعی اینجا با Firebase ارتباط برقرار می‌کنید
+        console.log('ثبت‌نام پزشک:', { fullname, phone, specialty, medicalId });
+        
+        // تاخیر برای شبیه‌سازی ارتباط با سرور
+        await new Promise(resolve => setTimeout(resolve, 1500));
+        
+        // ذخیره توکن (شبیه‌سازی)
+        localStorage.setItem('authToken', 'doctor-token-sample');
+        localStorage.setItem('userType', 'doctor');
+        localStorage.setItem('doctorPhone', phone);
+        
+        alert('ثبت‌نام با موفقیت انجام شد! در حال انتقال به پنل...');
+        
+        // هدایت به داشبورد
+        window.location.href = 'dashboard-doctor.html';
+      } catch (error) {
+        console.error('خطا در ثبت‌نام:', error);
+        alert('خطا در ثبت اطلاعات. لطفاً مجدداً تلاش کنید');
+      } finally {
+        submitBtn.innerHTML = originalBtnText;
+        submitBtn.disabled = false;
+      }
+    });
+
+    // اگر کاربر قبلاً وارد شده بود، به داشبورد هدایت شود
+    if (localStorage.getItem('authToken') && localStorage.getItem('userType') === 'doctor') {
+      window.location.href = 'dashboard-doctor.html';
+    }
+  </script>
+</body>
+</html>
