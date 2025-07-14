@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ورود به سامانه درمان‌منزل</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body {
+      font-family: 'Vazirmatn', sans-serif;
+      background-color: #f0fdf4;
+    }
+    .auth-input {
+      transition: all 0.3s ease;
+    }
+    .auth-input:focus {
+      box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.2);
+      border-color: #059669;
+    }
+    .password-toggle {
+      top: 50%;
+      left: 15px;
+      transform: translateY(-50%);
+    }
+  </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4">
+
+  <div class="bg-white rounded-xl shadow-lg w-full max-w-md overflow-hidden">
+    <!-- هدر -->
+    <div class="bg-gradient-to-l from-green-600 to-green-700 text-white p-6 text-center">
+      <i class="fas fa-home-medical text-3xl mb-3"></i>
+      <h1 class="text-2xl font-bold">درمان‌منزل</h1>
+      <p class="text-sm opacity-90 mt-1">سامانه اعزام پزشک و پرستار به منزل</p>
+    </div>
+
+    <!-- تب‌های ورود/ثبت‌نام -->
+    <div class="flex border-b">
+      <button id="login-tab" class="flex-1 py-4 font-medium text-green-600 border-b-2 border-green-600">
+        <i class="fas fa-sign-in-alt ml-2"></i> ورود کاربران
+      </button>
+      <button id="signup-tab" class="flex-1 py-4 font-medium text-gray-500">
+        <i class="fas fa-user-plus ml-2"></i> ثبت‌نام جدید
+      </button>
+    </div>
+
+    <!-- محتوای تب‌ها -->
+    <div class="p-6">
+      <!-- فرم ورود -->
+      <form id="login-form" class="space-y-4">
+        <div class="relative">
+          <label for="login-phone" class="block text-sm font-medium text-gray-700 mb-1">شماره موبایل</label>
+          <input type="tel" id="login-phone" name="phone" 
+                 class="auth-input w-full p-3 border border-gray-300 rounded-lg pl-12"
+                 placeholder="09123456789"
+                 pattern="09[0-9]{9}"
+                 required>
+          <span class="absolute password-toggle text-gray-400">
+            <i class="fas fa-mobile-alt"></i>
+          </span>
+        </div>
+
+        <div class="relative">
+          <label for="login-password" class="block text-sm font-medium text-gray-700 mb-1">رمز عبور</label>
+          <input type="password" id="login-password" name="password"
+                 class="auth-input w-full p-3 border border-gray-300 rounded-lg pl-12"
+                 placeholder="رمز عبور"
+                 minlength="6"
+                 required>
+          <span class="absolute password-toggle text-gray-400">
+            <i class="fas fa-lock"></i>
+          </span>
+          <button type="button" class="absolute left-3 bottom-3 text-gray-400 hover:text-gray-600 password-toggle-btn">
+            <i class="far fa-eye"></i>
+          </button>
+        </div>
+
+        <div class="flex items-center justify-between">
+          <div class="flex items-center">
+            <input type="checkbox" id="remember-me" name="remember" class="h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300 rounded">
+            <label for="remember-me" class="mr-2 block text-sm text-gray-700">
+              مرا به خاطر بسپار
+            </label>
+          </div>
+          <a href="#" class="text-sm text-green-600 hover:text-green-800">رمز عبور را فراموش کرده‌اید؟</a>
+        </div>
+
+        <button type="submit" class="w-full bg-green-600 hover:bg-green-700 text-white py-3 px-4 rounded-lg shadow-md transition">
+          <i class="fas fa-sign-in-alt ml-2"></i> ورود به سامانه
+        </button>
+      </form>
+
+      <!-- فرم ثبت‌نام -->
+      <form id="signup-form" class="space-y-4 hidden">
+        <div class="relative">
+          <label for="signup-fullname" class="block text-sm font-medium text-gray-700 mb-1">نام کامل</label>
+          <input type="text" id="signup-fullname" name="fullname"
+                 class="auth-input w-full p-3 border border-gray-300 rounded-lg pl-12"
+                 placeholder="نام و نام خانوادگی"
+                 required>
+          <span class="absolute password-toggle text-gray-400">
+            <i class="fas fa-user"></i>
+          </span>
+        </div>
+
+        <div class="relative">
+          <label for="signup-phone" class="block text-sm font-medium text-gray-700 mb-1">شماره موبایل</label>
+          <input type="tel" id="signup-phone" name="phone"
+                 class="auth-input w-full p-3 border border-gray-300 rounded-lg pl-12"
+                 placeholder="09123456789"
+                 pattern="09[0-9]{9}"
+                 required>
+          <span class="absolute password-toggle text-gray-400">
+            <i class="fas fa-mobile-alt"></i>
+          </span>
+        </div>
+
+        <div class="relative">
+          <label for="signup-password" class="block text-sm font-medium text-gray-700 mb-1">رمز عبور</label>
+          <input type="password" id="signup-password" name="password"
+                 class="auth-input w-full p-3 border border-gray-300 rounded-lg pl-12"
+                 placeholder="حداقل 6 کاراکتر"
+                 minlength="6"
+                 required>
+          <span class="absolute password-toggle text-gray-400">
+            <i class="fas fa-lock"></i>
+          </span>
+          <button type="button" class="absolute left-3 bottom-3 text-gray-400 hover:text-gray-600 password-toggle-btn">
+            <i class="far fa-eye"></i>
+          </button>
+        </div>
+
+        <div class="relative">
+          <label for="signup-confirm-password" class="block text-sm font-medium text-gray-700 mb-1">تکرار رمز عبور</label>
+          <input type="password" id="signup-confirm-password" name="confirm_password"
+                 class="auth-input w-full p-3 border border-gray-300 rounded-lg pl-12"
+                 placeholder="تکرار رمز عبور"
+                 minlength="6"
+                 required>
+          <span class="absolute password-toggle text-gray-400">
+            <i class="fas fa-lock"></i>
+          </span>
+        </div>
+
+        <div class="flex items-center">
+          <input type="checkbox" id="agree-terms" name="agree_terms" class="h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300 rounded" required>
+          <label for="agree-terms" class="mr-2 block text-sm text-gray-700">
+            با <a href="#" class="text-green-600 hover:text-green-800">شرایط و قوانین</a> موافقم
+          </label>
+        </div>
+
+        <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 px-4 rounded-lg shadow-md transition">
+          <i class="fas fa-user-plus ml-2"></i> ثبت‌نام در سامانه
+        </button>
+      </form>
+
+      <!-- ورود پزشکان -->
+      <div class="mt-6 pt-6 border-t border-gray-200 text-center">
+        <p class="text-sm text-gray-600">
+          پزشک یا پرستار هستید؟
+          <a href="register-doctor.html" class="text-green-600 hover:text-green-800 font-medium">
+            <i class="fas fa-user-md ml-1"></i> ورود/ثبت‌نام کادر درمان
+          </a>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- اسکریپت‌ها -->
+  <script>
+    // مدیریت تب‌ها
+    const loginTab = document.getElementById('login-tab');
+    const signupTab = document.getElementById('signup-tab');
+    const loginForm = document.getElementById('login-form');
+    const signupForm = document.getElementById('signup-form');
+
+    loginTab.addEventListener('click', () => {
+      loginTab.classList.add('text-green-600', 'border-green-600');
+      loginTab.classList.remove('text-gray-500');
+      signupTab.classList.add('text-gray-500');
+      signupTab.classList.remove('text-green-600', 'border-green-600');
+      loginForm.classList.remove('hidden');
+      signupForm.classList.add('hidden');
+    });
+
+    signupTab.addEventListener('click', () => {
+      signupTab.classList.add('text-green-600', 'border-green-600');
+      signupTab.classList.remove('text-gray-500');
+      loginTab.classList.add('text-gray-500');
+      loginTab.classList.remove('text-green-600', 'border-green-600');
+      signupForm.classList.remove('hidden');
+      loginForm.classList.add('hidden');
+    });
+
+    // نمایش/مخفی کردن رمز عبور
+    document.querySelectorAll('.password-toggle-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const input = this.parentElement.querySelector('input');
+        if (input.type === 'password') {
+          input.type = 'text';
+          this.innerHTML = '<i class="far fa-eye-slash"></i>';
+        } else {
+          input.type = 'password';
+          this.innerHTML = '<i class="far fa-eye"></i>';
+        }
+      });
+    });
+
+    // اعتبارسنجی فرم‌ها
+    document.getElementById('login-form').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      const phone = document.getElementById('login-phone').value;
+      const password = document.getElementById('login-password').value;
+      
+      try {
+        // شبیه‌سازی لاگین
+        console.log('در حال ورود با:', { phone, password });
+        
+        // نمایش پیام موفقیت
+        showAlert('ورود با موفقیت انجام شد', 'success');
+        
+        // ذخیره توکن (شبیه‌سازی)
+        localStorage.setItem('authToken', 'fake-token-' + Math.random().toString(36).substr(2));
+        
+        // انتقال به داشبورد
+        setTimeout(() => {
+          window.location.href = 'dashboard-user.html';
+        }, 1500);
+        
+      } catch (error) {
+        console.error('خطا در ورود:', error);
+        showAlert('شماره موبایل یا رمز عبور نادرست است', 'error');
+      }
+    });
+
+    document.getElementById('signup-form').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      const fullname = document.getElementById('signup-fullname').value;
+      const phone = document.getElementById('signup-phone').value;
+      const password = document.getElementById('signup-password').value;
+      const confirmPassword = document.getElementById('signup-confirm-password').value;
+      
+      if (password !== confirmPassword) {
+        showAlert('رمز عبور و تکرار آن مطابقت ندارند', 'error');
+        return;
+      }
+      
+      try {
+        // شبیه‌سازی ثبت‌نام
+        console.log('ثبت‌نام کاربر:', { fullname, phone, password });
+        
+        // نمایش پیام موفقیت
+        showAlert('ثبت‌نام با موفقیت انجام شد', 'success');
+        
+        // انتقال به صفحه ورود
+        setTimeout(() => {
+          loginTab.click();
+        }, 1500);
+        
+      } catch (error) {
+        console.error('خطا در ثبت‌نام:', error);
+        showAlert('خطا در ثبت‌نام. لطفاً مجدداً تلاش کنید', 'error');
+      }
+    });
+
+    // نمایش پیام‌ها
+    function showAlert(message, type) {
+      const alert = document.createElement('div');
+      alert.className = `fixed top-4 right-4 md:right-auto md:left-1/2 md:transform md:-translate-x-1/2 z-50 px-6 py-3 rounded-lg shadow-lg text-white ${
+        type === 'success' ? 'bg-green-600' : 'bg-red-600'
+      }`;
+      alert.innerHTML = `
+        <div class="flex items-center">
+          <i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'} ml-2"></i>
+          <span>${message}</span>
+        </div>
+      `;
+      document.body.appendChild(alert);
+      
+      setTimeout(() => {
+        alert.remove();
+      }, 3000);
+    }
+
+    // بررسی شماره موبایل
+    document.getElementById('signup-phone').addEventListener('input', function() {
+      this.value = this.value.replace(/[^0-9]/g, '').substr(0, 11);
+    });
+
+    document.getElementById('login-phone').addEventListener('input', function() {
+      this.value = this.value.replace(/[^0-9]/g, '').substr(0, 11);
+    });
+  </script>
+</body>
+</html>
