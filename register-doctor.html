@@ -181,6 +181,33 @@
 
   <!-- اسکریپت‌ها -->
   <script>
+    // مدیریت فرم ورود پزشکان
+document.getElementById('login-form').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  
+  const phone = document.getElementById('login-phone').value;
+  const password = document.getElementById('login-password').value;
+  
+  // شبیه‌سازی اعتبارسنجی (در نسخه واقعی با Firebase ارتباط برقرار می‌کند)
+  if (phone && password) {
+    // نمایش انیمیشن loading
+    const submitBtn = e.target.querySelector('button[type="submit"]');
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin ml-2"></i> در حال ورود';
+    submitBtn.disabled = true;
+    
+    // شبیه‌سازی تاخیر برای ارتباط با سرور
+    setTimeout(() => {
+      // ذخیره توکن در localStorage (شبیه‌سازی)
+      localStorage.setItem('authToken', 'doctor-token-sample');
+      localStorage.setItem('userType', 'doctor');
+      
+      // هدایت به داشبورد پزشک
+      window.location.href = 'dashboard-doctor.html';
+    }, 1500);
+  } else {
+    alert('لطفاً شماره موبایل و رمز عبور را وارد کنید');
+  }
+});
     // مدیریت تب‌ها
     const loginTabBtn = document.getElementById('login-tab-btn');
     const registerTabBtn = document.getElementById('register-tab-btn');
